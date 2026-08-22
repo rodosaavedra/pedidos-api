@@ -13,6 +13,13 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         //
+         $middleware->statefulApi();
+           // Los pedidos realizados desde pedidos-cliente
+        // son públicos y no utilizan CSRF.
+        $middleware->validateCsrfTokens(except: [
+            'api/pedidos',
+            'api/pedidos/*',
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

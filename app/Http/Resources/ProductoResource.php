@@ -14,7 +14,8 @@ class ProductoResource extends JsonResource
             'codigo' => $this->codigo,
             'descripcion' => $this->descripcion,
             'precio' => (float) $this->precio,
-            'stock' => $this->stock,
+            //'stock' => (float) ($this->stock_total ?? 0),
+            'stock' => (int) ($this->stock_total ?? 0),
             'categoria' => $this->whenLoaded('categoria', fn () => [
                 'id' => $this->categoria->id,
                 'nombre' => $this->categoria->nombre,

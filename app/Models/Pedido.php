@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Pedido extends Model
 {
@@ -27,6 +29,16 @@ class Pedido extends Model
 
     public function detalles(): HasMany
     {
-        return $this->hasMany(DetallePedido::class);
+        return $this->hasMany(DetallePedido::class, 'pedido_id');
+    }
+
+    public function reservas(): HasMany
+    {
+        return $this->hasMany(PedidoReserva::class, 'pedido_id');
+    }
+
+    public function venta(): HasOne
+    {
+        return $this->hasOne(Venta::class, 'pedido_id');
     }
 }
