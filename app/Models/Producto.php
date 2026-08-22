@@ -16,8 +16,7 @@ class Producto extends Model
         'descripcion',
         'categoria_id',
         'marca_id',
-        'precio',
-        'stock',
+        'precio',        
         'activo',
     ];
 
@@ -26,6 +25,15 @@ class Producto extends Model
         'stock' => 'integer',
         'activo' => 'boolean',
     ];
+
+    public function inventarios(): HasMany
+    {
+        return $this->hasMany(
+            Inventario::class,
+            'producto_id',
+            'id'
+        );
+    }
 
     public function categoria(): BelongsTo
     {
@@ -40,5 +48,13 @@ class Producto extends Model
     public function detallesPedido(): HasMany
     {
         return $this->hasMany(DetallePedido::class);
+    }
+
+    public function detallesKardex(): HasMany
+    {
+        return $this->hasMany(
+            DetalleKardex::class,
+            'id_producto'
+        );
     }
 }

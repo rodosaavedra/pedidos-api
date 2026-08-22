@@ -61,7 +61,21 @@ return [
                 PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
             ]) : [],
         ],
-
+        'vargas' => [
+            'driver' => 'mysql',
+            'host' => env('DB_VARGAS_HOST', '127.0.0.1'),
+            'port' => env('DB_VARGAS_PORT', '3306'),
+            'database' => env('DB_VARGAS_DATABASE'),
+            'username' => env('DB_VARGAS_USERNAME'),
+            'password' => env('DB_VARGAS_PASSWORD'),
+            'unix_socket' => '',
+            'charset' => 'utf8mb4',
+            'collation' => 'utf8mb4_general_ci',
+            'prefix' => '',
+            'prefix_indexes' => true,
+            'strict' => false,
+            'engine' => null,
+        ],
         'mariadb' => [
             'driver' => 'mariadb',
             'url' => env('DB_URL'),
