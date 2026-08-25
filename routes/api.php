@@ -12,12 +12,35 @@ use App\Http\Controllers\Api\Admin\KardexAdminController;
 use App\Http\Controllers\Api\Admin\AlmacenAdminController;
 use App\Http\Controllers\Api\Admin\LocalAdminController;
 use App\Http\Controllers\Api\Admin\VendedorAdminController;
+<<<<<<< HEAD
+=======
+
+use App\Http\Controllers\Api\VargasConexionController;
+use App\Http\Controllers\Api\VargasCatalogoController;
+use App\Http\Controllers\Api\Vargas\VargasProductoController;
+use App\Http\Controllers\Api\Vargas\VargasClienteController;
+use App\Http\Controllers\Api\Vargas\VargasAlmacenController;
+use App\Http\Controllers\Api\Vargas\VargasVendedorController;
+use App\Http\Controllers\Api\Vargas\VargasSyncController;
+
+>>>>>>> 4ccf138e1130c05ee37cb72673105df99e6cb73a
 use Illuminate\Support\Facades\Route;
 
 
 // =====================================================
 // CATÁLOGO PÚBLICO
 // =====================================================
+<<<<<<< HEAD
+=======
+Route::get(
+    '/vargas/probar',
+    [VargasConexionController::class, 'probar']
+);
+Route::get(
+    '/vargas/productos',
+    [VargasCatalogoController::class, 'productos']
+);
+>>>>>>> 4ccf138e1130c05ee37cb72673105df99e6cb73a
 
 Route::get(
     '/categorias',
@@ -86,6 +109,7 @@ Route::middleware('auth:sanctum')
         // ---------------------------------------------
         // PEDIDOS
         // ---------------------------------------------
+<<<<<<< HEAD
 /*
        Route::get(
             '/pedidos',
@@ -111,6 +135,9 @@ Route::middleware('auth:sanctum')
             Route::post('/{id}/cancelar', [PedidoAdminController::class, 'cancelar']);
             Route::post('/{id}/entregar', [PedidoAdminController::class, 'entregar']);
         });*/
+=======
+
+>>>>>>> 4ccf138e1130c05ee37cb72673105df99e6cb73a
         Route::prefix('pedidos')->group(function () {
 
             Route::get('/', [
@@ -204,4 +231,95 @@ Route::middleware('auth:sanctum')
             'vendedores',
             VendedorAdminController::class
         );
+<<<<<<< HEAD
     });
+=======
+
+        // =====================================================
+        // DB_VARGAS
+        // =====================================================
+
+        Route::prefix('vargas')->group(function () {
+
+            // ---------------------------------------------
+            // PRODUCTOS
+            // ---------------------------------------------
+
+            Route::get(
+                '/productos',
+                [VargasProductoController::class, 'index']
+            );
+
+            Route::get(
+                '/productos/{id}',
+                [VargasProductoController::class, 'show']
+            );
+
+
+            // ---------------------------------------------
+            // CLIENTES
+            // ---------------------------------------------
+
+            Route::get(
+                '/clientes',
+                [VargasClienteController::class, 'index']
+            );
+
+            Route::get(
+                '/clientes/{id}',
+                [VargasClienteController::class, 'show']
+            );
+
+
+            // ---------------------------------------------
+            // ALMACENES
+            // ---------------------------------------------
+
+            Route::get(
+                '/almacenes',
+                [VargasAlmacenController::class, 'index']
+            );
+
+            Route::get(
+                '/almacenes/{id}',
+                [VargasAlmacenController::class, 'show']
+            );
+
+
+            // ---------------------------------------------
+            // VENDEDORES
+            // ---------------------------------------------
+
+            Route::get(
+                '/vendedores',
+                [VargasVendedorController::class, 'index']
+            );
+
+            Route::get(
+                '/vendedores/{id}',
+                [VargasVendedorController::class, 'show']
+            );
+
+
+            // ---------------------------------------------
+            // SINCRONIZACIÓN
+            // ---------------------------------------------
+
+            Route::post(
+                '/sync/productos',
+                [VargasSyncController::class, 'productos']
+            );
+
+            Route::post(
+                '/sync/inventario',
+                [VargasSyncController::class, 'inventario']
+            );
+
+            Route::post(
+                '/sync',
+                [VargasSyncController::class, 'sync']
+            );
+        });  
+    });
+
+>>>>>>> 4ccf138e1130c05ee37cb72673105df99e6cb73a
