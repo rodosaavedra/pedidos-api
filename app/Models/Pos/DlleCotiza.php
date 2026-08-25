@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Vargas;
+namespace App\Models\Pos;
 
 use Illuminate\Database\Eloquent\Model;
 
 class DlleCotiza extends Model
 {
-    protected $connection = 'vargas';
+    protected $connection = 'Pos';
 
     protected $table = 'dllecotiza';
 

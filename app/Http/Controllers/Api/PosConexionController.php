@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class VargasConexionController extends Controller
+class PosConexionController extends Controller
 {
     public function probar()
     {
         try {
-            DB::connection('vargas')->getPdo();
+            DB::connection('Pos')->getPdo();
 
             return response()->json([
                 'ok' => true,
-                'mensaje' => 'Conexión con db_vargas correcta',
-                'base_datos' => DB::connection('vargas')
+                'mensaje' => 'Conexión con db_Pos correcta',
+                'base_datos' => DB::connection('Pos')
                     ->getDatabaseName(),
             ]);
 
@@ -23,7 +23,7 @@ class VargasConexionController extends Controller
 
             return response()->json([
                 'ok' => false,
-                'mensaje' => 'No se pudo conectar con db_vargas',
+                'mensaje' => 'No se pudo conectar con db_Pos',
                 'error' => $e->getMessage(),
             ], 500);
         }

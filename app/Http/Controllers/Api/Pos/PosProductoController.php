@@ -1,50 +1,50 @@
 <?php
 
-namespace App\Http\Controllers\Api\Vargas;
+namespace App\Http\Controllers\Api\Pos;
 
 use App\Http\Controllers\Controller;
-use App\Models\Vargas\ClienteVargas;
+use App\Models\Pos\ProductoPos;
 use Illuminate\Http\Request;
 use Throwable;
 
-class VargasClienteController extends Controller
+class PosProductoController extends Controller
 {
     public function index(Request $request)
     {
         try {
 
-            $query = ClienteVargas::query()
+            $query = ProductoPos::query()
                 ->where('estado', 1);
 
             if ($request->filled('q')) {
 
                 $q = trim($request->q);
+                
 
                 $query->where(function ($query) use ($q) {
 
-                    $query->where('nombre', 'like', "%{$q}%")
-                        ->orWhere('documento', 'like', "%{$q}%")
-                        ->orWhere('telefono', 'like', "%{$q}%");
+                    $query->where('codigo', 'like', "%{$q}%")
+                        ->orWhere('descripcion', 'like', "%{$q}%");
 
                 });
             }
 
-            $clientes = $query
-                ->orderBy('nombre')
+            $productos = $query
+                ->orderBy('descripcion')
                 ->paginate(
                     $request->integer('per_page', 50)
                 );
 
             return response()->json([
                 'ok' => true,
-                'data' => $clientes,
+                'data' => $productos,
             ]);
 
         } catch (Throwable $e) {
 
             return response()->json([
                 'ok' => false,
-                'mensaje' => 'Error al consultar clientes de DB_VARGAS',
+                'mensaje' => 'Error al consultar productos de DB_Pos',
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -55,26 +55,26 @@ class VargasClienteController extends Controller
     {
         try {
 
-            $cliente = ClienteVargas::find($id);
+            $producto = ProductoPos::find($id);
 
-            if (!$cliente) {
+            if (!$producto) {
 
                 return response()->json([
                     'ok' => false,
-                    'mensaje' => 'Cliente no encontrado',
+                    'mensaje' => 'Producto no encontrado',
                 ], 404);
             }
 
             return response()->json([
                 'ok' => true,
-                'data' => $cliente,
+                'data' => $producto,
             ]);
 
         } catch (Throwable $e) {
 
             return response()->json([
                 'ok' => false,
-                'mensaje' => 'Error al consultar cliente',
+                'mensaje' => 'Error al consultar producto',
                 'error' => $e->getMessage(),
             ], 500);
         }

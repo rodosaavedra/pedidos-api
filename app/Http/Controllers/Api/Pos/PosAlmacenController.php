@@ -1,19 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Api\Vargas;
+namespace App\Http\Controllers\Api\Pos;
 
 use App\Http\Controllers\Controller;
-use App\Models\Vargas\VendedorVargas;
+use App\Models\Pos\AlmacenPos;
 use Illuminate\Http\Request;
 use Throwable;
 
-class VargasVendedorController extends Controller
+class PosAlmacenController extends Controller
 {
     public function index(Request $request)
     {
         try {
 
-            $query = VendedorVargas::query();
+            $query = AlmacenPos::query()
+                ->where('estado', 1);
+
+            if ($request->filled('id_local')) {
+
+                $query->where(
+                    'id_local',
+                    $request->integer('id_local')
+                );
+            }
 
             if ($request->filled('q')) {
 
@@ -26,20 +35,20 @@ class VargasVendedorController extends Controller
                 );
             }
 
-            $vendedores = $query
+            $almacenes = $query
                 ->orderBy('nombre')
                 ->get();
 
             return response()->json([
                 'ok' => true,
-                'data' => $vendedores,
+                'data' => $almacenes,
             ]);
 
         } catch (Throwable $e) {
 
             return response()->json([
                 'ok' => false,
-                'mensaje' => 'Error al consultar vendedores de DB_VARGAS',
+                'mensaje' => 'Error al consultar almacenes de DB_Pos',
                 'error' => $e->getMessage(),
             ], 500);
         }
@@ -50,26 +59,26 @@ class VargasVendedorController extends Controller
     {
         try {
 
-            $vendedor = VendedorVargas::find($id);
+            $almacen = AlmacenPos::find($id);
 
-            if (!$vendedor) {
+            if (!$almacen) {
 
                 return response()->json([
                     'ok' => false,
-                    'mensaje' => 'Vendedor no encontrado',
+                    'mensaje' => 'Almacén no encontrado',
                 ], 404);
             }
 
             return response()->json([
                 'ok' => true,
-                'data' => $vendedor,
+                'data' => $almacen,
             ]);
 
         } catch (Throwable $e) {
 
             return response()->json([
                 'ok' => false,
-                'mensaje' => 'Error al consultar vendedor',
+                'mensaje' => 'Error al consultar almacén',
                 'error' => $e->getMessage(),
             ], 500);
         }

@@ -1,14 +1,14 @@
 <?php
 
-namespace App\Models\Vargas;
+namespace App\Models\Pos;
 
 use Illuminate\Database\Eloquent\Model;
 
-class VendedorVargas extends Model
+class InventarioPos extends Model
 {
-    protected $connection = 'vargas';
+    protected $connection = 'Pos';
 
-    protected $table = 'usuarios';
+    protected $table = 'inventario';
 
     protected $primaryKey = 'id';
 

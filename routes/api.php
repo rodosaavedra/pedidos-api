@@ -12,35 +12,30 @@ use App\Http\Controllers\Api\Admin\KardexAdminController;
 use App\Http\Controllers\Api\Admin\AlmacenAdminController;
 use App\Http\Controllers\Api\Admin\LocalAdminController;
 use App\Http\Controllers\Api\Admin\VendedorAdminController;
-<<<<<<< HEAD
-=======
 
-use App\Http\Controllers\Api\VargasConexionController;
-use App\Http\Controllers\Api\VargasCatalogoController;
-use App\Http\Controllers\Api\Vargas\VargasProductoController;
-use App\Http\Controllers\Api\Vargas\VargasClienteController;
-use App\Http\Controllers\Api\Vargas\VargasAlmacenController;
-use App\Http\Controllers\Api\Vargas\VargasVendedorController;
-use App\Http\Controllers\Api\Vargas\VargasSyncController;
+use App\Http\Controllers\Api\PosConexionController;
+use App\Http\Controllers\Api\PosCatalogoController;
+use App\Http\Controllers\Api\Pos\PosProductoController;
+use App\Http\Controllers\Api\Pos\PosClienteController;
+use App\Http\Controllers\Api\Pos\PosAlmacenController;
+use App\Http\Controllers\Api\Pos\PosVendedorController;
+use App\Http\Controllers\Api\Pos\PosSyncController;
 
->>>>>>> 4ccf138e1130c05ee37cb72673105df99e6cb73a
 use Illuminate\Support\Facades\Route;
 
 
 // =====================================================
 // CATÁLOGO PÚBLICO
 // =====================================================
-<<<<<<< HEAD
-=======
+
 Route::get(
-    '/vargas/probar',
-    [VargasConexionController::class, 'probar']
+    '/Pos/probar',
+    [PosConexionController::class, 'probar']
 );
 Route::get(
-    '/vargas/productos',
-    [VargasCatalogoController::class, 'productos']
+    '/Pos/productos',
+    [PosCatalogoController::class, 'productos']
 );
->>>>>>> 4ccf138e1130c05ee37cb72673105df99e6cb73a
 
 Route::get(
     '/categorias',
@@ -104,40 +99,7 @@ Route::middleware('auth:sanctum')
             '/me',
             [AuthController::class, 'me']
         );
-
-
-        // ---------------------------------------------
-        // PEDIDOS
-        // ---------------------------------------------
-<<<<<<< HEAD
-/*
-       Route::get(
-            '/pedidos',
-            [PedidoAdminController::class, 'index']
-        );
-
-        Route::get(
-            '/pedidos/{pedido}',
-            [PedidoAdminController::class, 'show']
-        );
-
-        Route::patch(
-            '/pedidos/{pedido}/estado',
-            [PedidoAdminController::class, 'actualizarEstado']
-        );*/
-
-      /*  Route::prefix('pedidos')->group(function () {
-            Route::get('/', [PedidoAdminController::class, 'index']);
-            Route::get('/{pedido}', [PedidoAdminController::class, 'show']);
-            Route::patch('/{pedido}/estado',[PedidoAdminController::class, 'actualizarEstado']);
-            Route::get('/{id}/disponibilidad', [PedidoAdminController::class, 'disponibilidad']);
-            Route::post('/{id}/confirmar', [PedidoAdminController::class, 'confirmar']);
-            Route::post('/{id}/cancelar', [PedidoAdminController::class, 'cancelar']);
-            Route::post('/{id}/entregar', [PedidoAdminController::class, 'entregar']);
-        });*/
-=======
-
->>>>>>> 4ccf138e1130c05ee37cb72673105df99e6cb73a
+    
         Route::prefix('pedidos')->group(function () {
 
             Route::get('/', [
@@ -231,15 +193,15 @@ Route::middleware('auth:sanctum')
             'vendedores',
             VendedorAdminController::class
         );
-<<<<<<< HEAD
+
     });
-=======
+
 
         // =====================================================
-        // DB_VARGAS
+        // DB_Pos
         // =====================================================
 
-        Route::prefix('vargas')->group(function () {
+        Route::prefix('Pos')->group(function () {
 
             // ---------------------------------------------
             // PRODUCTOS
@@ -247,12 +209,12 @@ Route::middleware('auth:sanctum')
 
             Route::get(
                 '/productos',
-                [VargasProductoController::class, 'index']
+                [PosProductoController::class, 'index']
             );
 
             Route::get(
                 '/productos/{id}',
-                [VargasProductoController::class, 'show']
+                [PosProductoController::class, 'show']
             );
 
 
@@ -262,12 +224,12 @@ Route::middleware('auth:sanctum')
 
             Route::get(
                 '/clientes',
-                [VargasClienteController::class, 'index']
+                [PosClienteController::class, 'index']
             );
 
             Route::get(
                 '/clientes/{id}',
-                [VargasClienteController::class, 'show']
+                [PosClienteController::class, 'show']
             );
 
 
@@ -277,12 +239,12 @@ Route::middleware('auth:sanctum')
 
             Route::get(
                 '/almacenes',
-                [VargasAlmacenController::class, 'index']
+                [PosAlmacenController::class, 'index']
             );
 
             Route::get(
                 '/almacenes/{id}',
-                [VargasAlmacenController::class, 'show']
+                [PosAlmacenController::class, 'show']
             );
 
 
@@ -292,12 +254,12 @@ Route::middleware('auth:sanctum')
 
             Route::get(
                 '/vendedores',
-                [VargasVendedorController::class, 'index']
+                [PosVendedorController::class, 'index']
             );
 
             Route::get(
                 '/vendedores/{id}',
-                [VargasVendedorController::class, 'show']
+                [PosVendedorController::class, 'show']
             );
 
 
@@ -307,19 +269,17 @@ Route::middleware('auth:sanctum')
 
             Route::post(
                 '/sync/productos',
-                [VargasSyncController::class, 'productos']
+                [PosSyncController::class, 'productos']
             );
 
             Route::post(
                 '/sync/inventario',
-                [VargasSyncController::class, 'inventario']
+                [PosSyncController::class, 'inventario']
             );
 
             Route::post(
                 '/sync',
-                [VargasSyncController::class, 'sync']
+                [PosSyncController::class, 'sync']
             );
-        });  
-    });
-
->>>>>>> 4ccf138e1130c05ee37cb72673105df99e6cb73a
+    });  
+    

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Api\Vargas;
+namespace App\Http\Controllers\Api\Pos;
 
 use App\Http\Controllers\Controller;
-use App\Models\Vargas\ProductoVargas;
-use App\Models\Vargas\InventarioVargas;
+use App\Models\Pos\ProductoPos;
+use App\Models\Pos\InventarioPos;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\JsonResponse;
 use Throwable;
 
-class VargasSyncController extends Controller
+class PosSyncController extends Controller
 {
     /**
      * Sincronización general.
@@ -102,42 +102,42 @@ class VargasSyncController extends Controller
         $creados = 0;
         $actualizados = 0;
 
-        ProductoVargas::query()
+        ProductoPos::query()
             ->orderBy('id')
             ->chunkById(200, function ($productos) use (
                 &$creados,
                 &$actualizados
             ) {
 
-                foreach ($productos as $productoVargas) {
+                foreach ($productos as $productoPos) {
 
                     /*
                      * IMPORTANTE:
                      *
-                     * Aquí usamos el ID de Vargas como
+                     * Aquí usamos el ID de Pos como
                      * referencia externa.
                      *
                      * No debemos perder la relación:
                      *
                      * pedidos-admin.producto
                      *        ↕
-                     * db_vargas.productos
+                     * db_Pos.productos
                      */
 
                     $producto = DB::table('productos')
-                        ->where('vargas_id', $productoVargas->id)
+                        ->where('Pos_id', $productoPos->id)
                         ->first();
 
                     $datos = [
-                        'vargas_id' => $productoVargas->id,
+                        'Pos_id' => $productoPos->id,
 
-                        'codigo' => $productoVargas->codigo,
+                        'codigo' => $productoPos->codigo,
 
-                        'nombre' => $productoVargas->descripcion,
+                        'nombre' => $productoPos->descripcion,
 
-                        'descripcion' => $productoVargas->descripcion,
+                        'descripcion' => $productoPos->descripcion,
 
-                        'estado' => (int) $productoVargas->estado,
+                        'estado' => (int) $productoPos->estado,
 
                         'updated_at' => now(),
                     ];
@@ -179,7 +179,7 @@ class VargasSyncController extends Controller
         $creados = 0;
         $actualizados = 0;
 
-        InventarioVargas::query()
+        InventarioPos::query()
             ->where('estado', 1)
             ->orderBy('id')
             ->chunkById(200, function ($items) use (
@@ -191,11 +191,11 @@ class VargasSyncController extends Controller
 
                     /*
                      * Buscamos el producto local mediante
-                     * el ID original de Vargas.
+                     * el ID original de Pos.
                      */
 
                     $producto = DB::table('productos')
-                        ->where('vargas_id', $item->id_producto)
+                        ->where('Pos_id', $item->id_producto)
                         ->first();
 
                     if (!$producto) {
@@ -215,7 +215,7 @@ class VargasSyncController extends Controller
                      */
 
                     $almacen = DB::table('almacenes')
-                        ->where('vargas_id', $item->id_almacen)
+                        ->where('Pos_id', $item->id_almacen)
                         ->first();
 
                     if (!$almacen) {

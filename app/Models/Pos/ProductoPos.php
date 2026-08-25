@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models\Vargas;
+namespace App\Models\Pos;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProductoVargas extends Model
+class ProductoPos extends Model
 {
-    protected $connection = 'vargas';
+    protected $connection = 'Pos';
 
     protected $table = 'productos';
 

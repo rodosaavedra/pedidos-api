@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Vargas\ProductoVargas;
+use App\Models\Pos\ProductoPos;
 
-class VargasCatalogoController extends Controller
+class PosCatalogoController extends Controller
 {
     public function productos()
     {
-        $productos = ProductoVargas::query()
+        $productos = ProductoPos::query()
             ->where('estado', 1)
             ->orderBy('descripcion')
             ->get();
